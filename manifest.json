@@ -1,0 +1,47 @@
+{
+    "manifest_version":2,
+
+    "name": "InvestEdge Rest Viewer",
+    "description": "Use this to brows the InvestEdge web services in your chrome browser",
+    "version": "2.0.4",
+
+    "icons": { "128": "icon.png" },
+
+    "background": { "scripts": ["js/hmac-sha256.js", "js/background.js"] },
+
+    "content_scripts": [
+        {
+            "matches": ["https://*.investedge.net/api/*", "https://*.investedge.net/api/*"],
+            "css": ["css/bootstrap.min.css", "css/investEdgeStyle.css", "css/animate.min.css"],
+            "js": ["js/jquery-2.0.3.min.js", "js/bootstrap.min.js", "js/investEdgeScript.js"],
+            "run_at": "document_end"
+        }
+    ],
+
+    "options_page": "options.html",
+
+    "web_accessible_resources": [
+        "css/bootstrap.min.css",
+        "js/jquery-2.0.3.min.js",
+        "js/jquery-2.0.3.min.map",
+        "js/bootstrap.min.map",
+        "js/investEdgeScript.js"
+    ],
+
+    "permissions": [
+        "tabs",
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "http://*.investedge.net/api/*",
+        "https://*.investedge.net/api/*",
+        "https://*.investedge.net/*"
+    ],
+
+    "browser_action": {
+        "default_name": "InvestEdge",
+        "default_icon": "icon19.png",
+        "default_title": "InvestEdge Rest",
+        "default_popup": "popup.html"
+    }
+}

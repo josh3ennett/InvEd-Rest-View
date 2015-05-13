@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <title>InvestEdge Rest</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/animate.min.css" rel="stylesheet">
+        <style>
+            body{font-family: sans-serif; width:700px; padding:25px; }
+
+            a[href*="/api/"]{
+                color: black;
+                text-decoration: none;
+                vertical-align: middle;
+                line-height: 20px;
+            }
+            a[href*="/api/"]:hover{
+                color:black;
+                text-decoration: none;
+                cursor: text;
+            }
+
+            #restList input{
+                vertical-align: middle !important;
+                line-height: 20px;
+                border: none !important;
+                border-bottom: solid 1px #333 !important;
+                background: transparent !important;
+            }
+
+            table,tr,td{
+                vertical-align: middle !important;
+            }
+
+        </style>
+
+    </head>
+    <body><!--
+
+        <form>
+            <label class="control-label">InvestEdge Url</label>
+            <div class="control-group">
+                <input type="text" />
+            </div>
+
+
+            <label class="control-label">Private Key</label>
+            <div class="control-group">
+                <input type="text" />
+            </div>
+
+            <label class="control-label">Public Key</label>
+            <div class="control-group">
+                <input type="text" />
+            </div>
+
+
+            <label class="control-label">User Key</label>
+            <div class="control-group">
+                <input type="text" />
+            </div>
+
+            <label class="control-label">User Name</label>
+            <div class="control-group">
+                <input type="text" />
+            </div>
+
+
+            <div class="control-group">
+                <button value="save">Save</button>
+            </div>
+        </form>-->
+
+    <div class="row-fluid">
+        <div class="span12" id="errors-and-warnings">
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+
+            <h3 id="listTitle">Methods</h3>
+            <form onsubmit="return false" id="restList">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Type</th>
+                        <th>Path</th>
+                        <th>GET</th>
+                        <th>Search</th>
+                    </tr>
+                    <tr>
+                        <td>Account Collection</td>
+                        <td><a href="/api/Accounts">/api/Accounts</a></td>
+                        <td><button class="btn get">GET</button></td>
+                        <td><button class="btn search" data-search="filter,filter_type">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Account</td>
+                        <td>
+                            <a href="/api/Accounts/{accountId1}/">/api/Accounts/</a>
+                            <input type="text" class="input-small" id="accountId1" placeholder="accountID"/>
+                        </td>
+                        <td><button class="btn get">GET</button></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Account Parameter Collection</td>
+                        <td>
+                            <a href="/api/Accounts/{accountId3}/Parameters">/api/Accounts/</a>
+                            <input type="text" class="input-small" id="accountId3" placeholder="accountID"/>
+                            /Parameters/
+                        </td>
+                        <td><button class="btn get">GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Consolidated Account Collection</td>
+                        <td>
+                            <a href="/api/consolidatedaccounts/">/api/ConsolidatedAccounts/</a>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Consolidated Account</td>
+                        <td>
+                            <a href="/api/consolidatedaccounts/{consolidatedaccountsId1}">/api/ConsolidatedAccounts/</a>
+                            <input type="text" class="input-small" id="consolidatedaccountsId1" placeholder="cAccountID"/>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Consolidated Account Sub Account Collection</td>
+                        <td>
+                            <a href="/api/consolidatedaccounts/{consolidatedaccountsId2}/subaccounts">/api/ConsolidatedAccounts/</a>
+                            <input type="text" class="input-small" id="consolidatedaccountsId2" placeholder="cAccountID"/>
+                            /SubAccounts/
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trade Collection</td>
+                        <td>
+                            <a href="/api/trades/">/api/Trades/</a>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter,filter_type,date,status">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trade</td>
+                        <td>
+                            <a href="/api/trades/{tradeId}/">/api/Trades/</a>
+                            <input type="text" class="input-small" id="tradeId" placeholder="tradeID"/>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Account Group Collection</td>
+                        <td>
+                            <a href="/api/accountgroups/">/api/AccountGroups/</a>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Account Group</td>
+                        <td>
+                            <a href="/api/accountgroups/{accountGroupId1}">/api/AccountGroups/</a>
+                            <input type="text" class="input-small" id="accountGroupId1" placeholder="accountGrpID"/>
+
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Account Group Account Collection</td>
+                        <td>
+                            <a href="/api/accountgroups/{accountGroupId2}/accounts">/api/AccountGroups/</a>
+                            <input type="text" class="input-small" id="accountGroupId2" placeholder="accountGrpID"/>
+                            /Accounts/
+
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Account Group User Collection</td>
+                        <td>
+                            <a href="/api/accountgroups/{accountGroupId3}/users">/api/AccountGroups</a>
+                            <input type="text" class="input-small" id="accountGroupId4" placeholder="accountGrpID"/>
+                            /Users/
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Parameter Collection</td>
+                        <td>
+                            <a href="/api/parameters/">/api/Parameters/</a>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td><button class="btn search" data-search="filter">Search</button></td>
+                    </tr>
+                    <tr>
+                        <td>Parameter</td>
+                        <td>
+                            <a href="/api/parameters/{parameterId1}">/api/Parameters/</a>
+                            <input type="text" class="input-small" id="parameterId1" placeholder="parameterID"/>
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Parameter Values</td>
+                        <td>
+                            <a href="/api/parameters/{parameterId2}/values/">/api/Parameters/</a>
+                            <input type="text" class="input-small" id="parameterId2" placeholder="parameterID"/>
+                            /Values/
+                        </td>
+                        <td><button class="btn get" >GET</button></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="modal fade hide" id="search-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Search Options</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Search</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+
+    </body>
+</html>

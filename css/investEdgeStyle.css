@@ -1,0 +1,13 @@
+html, body{
+    padding:16px
+}
+
+body h1:first-child{
+    margin-top: 0;
+}
+
+h1{
+    margin:1em 0 16px 0;
+    padding:0 0 16px 0;
+    border-bottom: solid 1px #e6e6e6;
+}
